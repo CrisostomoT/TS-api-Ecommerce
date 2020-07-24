@@ -4,9 +4,10 @@
   "description": "",
   "main": "./dist/server.js",
   "scripts": {
-    "test": "ts-node src/index.ts",
-    "dev": "tsc && nodemon dist/server.js",
-    "prod": "tsc && nodemon dist/server.js"
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "clean": "rimraf dist/ uploads/",
+    "start": "npm run build && node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,9 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^3.23.3",
-    "ts-node": "^8.10.2"
+    "multer": "^1.4.2",
+    "ts-node": "^8.10.2",
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
@@ -25,7 +28,9 @@
     "@types/helmet": "0.0.47",
     "@types/mongoose": "^5.7.32",
     "@types/morgan": "^1.9.1",
+    "@types/multer": "^1.4.3",
     "@types/node": "^14.0.23",
+    "@types/uuid": "^8.0.0",
     "body-parser": "^1.19.0",
     "install": "^0.13.0",
     "mongoose": "^5.9.25",
