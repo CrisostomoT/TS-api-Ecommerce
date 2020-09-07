@@ -1,13 +1,13 @@
+import * as dotenv from 'dotenv';
 import express, { Application } from 'express';
 import morgan from 'morgan';
-import * as dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import indexRoutes from './routes/index';
+dotenv.config();
 
 const app: Application = express();
 
-dotenv.config();
 
 app.set('port', process.env.PORT || 8000);
 

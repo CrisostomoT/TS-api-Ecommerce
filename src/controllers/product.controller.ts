@@ -3,8 +3,12 @@ import Product from '../models/Products';
 import fs from 'fs';
 
 export const getProduct = async (req: Request, res: Response): Promise<Response> => {
-    const products = await Product.find();
-    return res.json(products);
+    try {
+        const products = await Product.find();
+        return res.json(products);
+    } catch (e) {
+        console.error(e);
+    }
 };
 
 export const getProductById = async (req: Request, res: Response): Promise<Response> => {
@@ -14,25 +18,30 @@ export const getProductById = async (req: Request, res: Response): Promise<Respo
 };
 
 export const addProduct = async (req: Request, res: Response): Promise<Response> => {
-    const { name, price, size, colors } = req.body;
-    const imagePath = req.file.path;
-    const newProduct = {
-        name: name,
-        price: price,
-        size: size,
-        colors: colors,
-        imagePath: imagePath
-    };
-    const product = new Product(newProduct);
-    await product.save();
+    try {
+        const { name, price, size, colors } = req.body;
+        const imagePath = req.file.path;
+        const newProduct = {
+            name: name,
+            price: price,
+            size: size,
+            colors: colors,
+            imagePath: imagePath
+        };
+        const product = new Product(newProduct);
+        await product.save();
 
-    return res.json({
-        message: "Product succesfully saved",
-        product
-    });
+        return res.json({
+            message: "Product succesfully saved",
+            product
+        });
+
+    } catch (e) {
+        console.error(e);
+    }
 };
 
-export async function deleteProduct (req: Request, res: Response): Promise<Response> {
+export async function deleteProduct(req: Request, res: Response): Promise<Response> {
     let id = req.params.id;
     await Product.findByIdAndDelete(id);
     fs.unlink(req.file.path, (err) => {
@@ -58,5 +67,5 @@ export const updateProduct = async (req: Request, res: Response): Promise<Respon
         newColors: colors
     };
     const updatedProduct = await Product.findByIdAndUpdate(id, oldProduct);
-    return res.json(updateProduct)
+    return res.json(updatedProduct)
 };

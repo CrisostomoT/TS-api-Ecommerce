@@ -5,7 +5,7 @@ const schema = new Schema({
     price: Number,
     size: String,
     colors: String,
-    imagePath: String
+    imagePath: String,
 });
 
 interface IProduct extends Document {

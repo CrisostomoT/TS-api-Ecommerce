@@ -1,5 +1,5 @@
 import app from './app';
-import {connectDb} from './db';
+import { connectDb } from './db';
 
 async function main() {
     connectDb();
